@@ -15,24 +15,32 @@ public class binary_search {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        // ✅ Step 1: Dataset selection
+        // Get current working directory
+        String currentDir = System.getProperty("user.dir");
+
+        // Step 1: Dataset selection
         System.out.println("Choose dataset:");
         System.out.println("1. sorted_dataset.csv");
         // System.out.println("2. merge_sort_100000.csv");
         // System.out.println("3. quick_sort_100000.csv");
-        // System.out.print("Enter choice (1-3): ");
+        System.out.print("Enter choice (1-3): ");
         String choice = scanner.nextLine();
 
-        String filename = switch (choice) {
-            case "1" -> "D:/ALGORITHM ASSIGNMENT/sorted_dataset.csv" ;
-            // case "2" -> "merge_sort_100000.csv";
-            // case "3" -> "quick_sort_100000.csv";
-            default -> null;
-        };
+        String filename = null;
 
-        if (filename == null) {
-            System.out.println("Invalid choice.");
-            return;
+        switch (choice) {
+            case "1":
+                filename = currentDir + File.separator + "sorted_dataset.csv";
+                break;
+            // case "2":
+            //     filename = currentDir + File.separator + "merge_sort_100000.csv";
+            //     break;
+            // case "3":
+            //     filename = currentDir + File.separator + "quick_sort_100000.csv";
+            //     break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
         }
 
         // Step 2: Load dataset
