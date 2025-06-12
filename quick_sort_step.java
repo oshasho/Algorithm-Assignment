@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class QuickSortStep {
+public class quick_sort_step {
 
     static class Element {
         int number;
