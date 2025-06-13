@@ -15,7 +15,6 @@ public class MergeSort {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println("Error: Please provide exactly one input file");
             System.out.println("Usage: java MergeSort <input_dataset.csv>");
             return;
         }
