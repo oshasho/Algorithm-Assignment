@@ -1,7 +1,6 @@
 import csv
 import sys
 
-#quick_sort modify sikit so boleh user friendly terima input lain
 def read_csv_subset(filename, start_row, end_row):
     with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile)
