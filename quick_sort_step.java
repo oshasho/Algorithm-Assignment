@@ -19,7 +19,7 @@ public class quick_sort_step {
 
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.out.println("Usage: java QuickSortStep dataset_sample_1000.csv startRow endRow");
+            System.out.println("Usage: java quick_sort_step dataset_sample_1000.csv startRow endRow");
             return;
         }
 

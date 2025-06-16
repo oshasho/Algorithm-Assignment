@@ -1,0 +1,57 @@
+MERGE SORT
+Sample merge_sort_step_1_7.txt
+[1981761604/uoren, 56205740/igerk, 467728380/qouezp, 136601853/sitew, 1869583452/gslagi, 339673152/ufnj, 1025900554/rezop]
+[56205740/igerk, 1981761604/uoren, 467728380/qouezp, 136601853/sitew, 1869583452/gslagi, 339673152/ufnj, 1025900554/rezop]
+[56205740/igerk, 1981761604/uoren, 136601853/sitew, 467728380/qouezp, 1869583452/gslagi, 339673152/ufnj, 1025900554/rezop]
+[56205740/igerk, 136601853/sitew, 467728380/qouezp, 1981761604/uoren, 1869583452/gslagi, 339673152/ufnj, 1025900554/rezop]
+[56205740/igerk, 136601853/sitew, 467728380/qouezp, 1981761604/uoren, 339673152/ufnj, 1869583452/gslagi, 1025900554/rezop]
+[56205740/igerk, 136601853/sitew, 467728380/qouezp, 1981761604/uoren, 339673152/ufnj, 1025900554/rezop, 1869583452/gslagi]
+[56205740/igerk, 136601853/sitew, 339673152/ufnj, 467728380/qouezp, 1025900554/rezop, 1869583452/gslagi, 1981761604/uoren]
+
+Sample merge_sort_1000.csv (only the first 5 rows are shown here, your file should have all rows based on the dataset size)
+875538,iliheq
+1659492,ziuujh
+2487583,odtu
+2558672,iyavou
+
+QUICK SORT
+Sample quick_sort_step_1_7.txt
+[1981761604/uoren, 56205740/igerk, 467728380/qouezp, 136601853/sitew, 1869583452/gslagi, 339673152/ufnj, 1025900554/rezop]
+pi=4 [56205740/igerk, 467728380/qouezp, 136601853/sitew, 339673152/ufnj, 1025900554/rezop, 1981761604/uoren, 1869583452/gslagi]
+pi=2 [56205740/igerk, 136601853/sitew, 339673152/ufnj, 467728380/qouezp, 1025900554/rezop, 1981761604/uoren, 1869583452/gslagi]
+pi=1 [56205740/igerk, 136601853/sitew, 339673152/ufnj, 467728380/qouezp, 1025900554/rezop, 1981761604/uoren, 1869583452/gslagi]
+pi=5 [56205740/igerk, 136601853/sitew, 339673152/ufnj, 467728380/qouezp, 1025900554/rezop, 1869583452/gslagi, 1981761604/uoren]
+
+
+
+
+Sample binary_search_step_2008864030.txt (target found)
+
+500: 1027377159/biaog
+750: 1622029193/vveed
+875: 1859709030/uiib
+938: 1989726533/woiw
+969: 2069520854/rauo
+953: 2026816381/zfabau
+945: 2006875427/aweim
+949: 2016987573/avzeq
+947: 2011399257/eiiof
+946: 2008864030/rdie
+
+Sample binary_search_step_123456789.txt (target not found)
+500: 1027377159/biaog
+250: 511138138/zgeiv
+125: 236835705/qoequu
+62: 121630136/eafn
+93: 173497570/lfepv
+77: 141824118/gwizki
+69: 128570716/ahia
+65: 125960602/pjbiu
+63: 123399639/zlvzoi
+64: 125177725/iooh
+-1
+
+Sample binary_search_1000.txt (x, y and z are numbers)
+Best case time : x ms
+Average case time: y ms
+Worst case time : z ms

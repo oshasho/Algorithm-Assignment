@@ -18,9 +18,9 @@ public class binary_search {
         // Get current working directory
         String currentDir = System.getProperty("user.dir");
 
-        // Step 1: Dataset selection
+        // Dataset selection
         System.out.println("Choose dataset:");
-        System.out.println("1. sorted_dataset.csv");
+        System.out.println("1. quick_sort_1000.csv");
         // System.out.println("2. merge_sort_100000.csv");
         // System.out.println("3. quick_sort_100000.csv");
         System.out.print("Enter choice (1-3): ");
@@ -30,7 +30,7 @@ public class binary_search {
 
         switch (choice) {
             case "1":
-                filename = currentDir + File.separator + "sorted_dataset.csv";
+                filename = currentDir + File.separator + "quick_sort_1000.csv";
                 break;
             // case "2":
             //     filename = currentDir + File.separator + "merge_sort_100000.csv";
@@ -43,16 +43,16 @@ public class binary_search {
                 return;
         }
 
-        // Step 2: Load dataset
+        // Load dataset
         List<DataRow> data = loadDataset(filename);
         int n = data.size();
 
-        // Step 3: Choose targets
+        // Choose targets
         int bestTarget = data.get(n / 2).number;
         int averageTarget = data.get(n / 4).number;
         int worstTarget = 999999999; // not in dataset
 
-        // Step 4: Measure time (excluding I/O)
+        // Measure time 
         double bestTime = measureTime(data, bestTarget);
         double avgTime = measureTime(data, averageTarget);
         double worstTime = measureTime(data, worstTarget);

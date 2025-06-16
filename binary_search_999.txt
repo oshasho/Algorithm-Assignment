@@ -1,3 +1,0 @@
-Best case : 291.39 ns
-Average case : 402.80 ns
-Worst case : 454.25 ns

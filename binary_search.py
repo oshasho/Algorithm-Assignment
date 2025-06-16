@@ -33,13 +33,13 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # User Dataset selection
 print("Choose dataset:")
-print("1. sorted_dataset.csv")
+print("1. quick_sort_1000.csv")
 # print("2. merge_sort_100000.csv")
 # print("3. quick_sort_100000.csv")
 choice = input("Enter choice (1-3): ")
 
 dataset_map = {
-    "1": "sorted_dataset.csv",
+    "1": "quick_sort_1000.csv",
     # "2": "merge_sort_100000.csv",
     # "3": "quick_sort_100000.csv"
 }

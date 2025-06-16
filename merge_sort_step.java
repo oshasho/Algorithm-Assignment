@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class MergeSortStep {
+public class merge_sort_step {
 
     private static class DataElement {
         final int numericValue;
@@ -17,7 +17,7 @@ public class MergeSortStep {
 
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.out.println("Usage: java MergeSort <input_file> <start_row> <end_row>");
+            System.out.println("Usage: java merge_sort_step <input_file> <start_row> <end_row>");
             return;
         }
         String inputFilename = args[0];

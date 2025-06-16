@@ -1,9 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-public class MergeSort {
+public class merge_sort {
 
-    private static class DataElement {
+    private class DataElement {
         final int numericValue;
         final String textValue;
 
@@ -14,8 +14,11 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
+        new merge_sort().run(args); // Create an instance and run
+    }
+    private void run(String[] args) {
         if (args.length != 1) {
-            System.out.println("Usage: java MergeSort <input_dataset.csv>");
+            System.out.println("Usage: java merge_sort <input_dataset.csv>");
             return;
         }
 
@@ -33,7 +36,7 @@ public class MergeSort {
         System.out.printf("Sorting completed time: " + runningTime + "seconds");
     }
 
-    private static List<DataElement> loadDataset(String filename) {
+    private List<DataElement> loadDataset(String filename) {
         List<DataElement> elements = new ArrayList<>();
 
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filename))) {
@@ -55,7 +58,7 @@ public class MergeSort {
         return elements;
     }
 
-    private static void performMergeSort(List<DataElement> arr, int start, int end) {
+    private void performMergeSort(List<DataElement> arr, int start, int end) {
         if (start < end) {
             int middle = (start + end) / 2;
             performMergeSort(arr, start, middle);
@@ -64,7 +67,7 @@ public class MergeSort {
         }
     }
 
-    private static void mergeElements(List<DataElement> arr, int start, int middle, int end) {
+    private void mergeElements(List<DataElement> arr, int start, int middle, int end) {
         List<DataElement> temporary = new ArrayList<>();
         int i = start, j = middle + 1;
 
@@ -84,7 +87,7 @@ public class MergeSort {
         }
     }
 
-    private static void saveSortedResults(List<DataElement> elements, String filename) {
+    private void saveSortedResults(List<DataElement> elements, String filename) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             for (DataElement element : elements) {
                 writer.println(element.numericValue + "," + element.textValue);
