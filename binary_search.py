@@ -28,31 +28,34 @@ def measure_time(data, target):
     end = time.perf_counter_ns()
     return (end - start) / n
 
-# Get the directory where this script is located
+# Get current directory
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# User Dataset selection
+# List all .csv files in the directory
+csv_files = [f for f in os.listdir(script_dir) if f.lower().endswith('.csv')]
+
+if not csv_files:
+    print("No CSV files found in the current directory.")
+    exit()
+
+# Show list to user
 print("Choose dataset:")
-print("1. quick_sort_1000.csv")
-# print("2. merge_sort_100000.csv")
-# print("3. quick_sort_100000.csv")
-choice = input("Enter choice (1-3): ")
+for idx, fname in enumerate(csv_files, start=1):
+    print(f"{idx}. {fname}")
 
-dataset_map = {
-    "1": "quick_sort_1000.csv",
-    # "2": "merge_sort_100000.csv",
-    # "3": "quick_sort_100000.csv"
-}
-
-filename = dataset_map.get(choice)
-if filename is None:
+try:
+    choice = int(input(f"Enter choice (1-{len(csv_files)}): "))
+    if not (1 <= choice <= len(csv_files)):
+        raise ValueError
+except ValueError:
     print("Invalid choice.")
     exit()
 
-# Full path to dataset in same folder
+# Get full file path
+filename = csv_files[choice - 1]
 full_path = os.path.join(script_dir, filename)
 
-# Load the selected dataset
+# Load dataset
 data = load_dataset(full_path)
 n = len(data)
 
@@ -66,11 +69,11 @@ best_time = measure_time(data, best_target)
 avg_time = measure_time(data, average_target)
 worst_time = measure_time(data, worst_target)
 
-# Save result to file (in same folder)
+# Save result to file
 output_file = os.path.join(script_dir, f"binary_search_{n}.txt")
 with open(output_file, "w") as f:
-    f.write(f"Best case : {best_time:.2f} ns\n")
-    f.write(f"Average case : {avg_time:.2f} ns\n")
-    f.write(f"Worst case : {worst_time:.2f} ns\n")
+    f.write(f"Best case time    : {best_time:.2f} ns\n")
+    f.write(f"Average case time : {avg_time:.2f} ns\n")
+    f.write(f"Worst case time   : {worst_time:.2f} ns\n")
 
 print(f"\nResults written to {output_file}")

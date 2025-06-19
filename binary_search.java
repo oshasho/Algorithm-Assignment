@@ -13,35 +13,34 @@ public class binary_search {
     }
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
+    try (Scanner scanner = new Scanner(System.in)) {
         // Get current working directory
         String currentDir = System.getProperty("user.dir");
+        File dir = new File(currentDir);
 
-        // Dataset selection
-        System.out.println("Choose dataset:");
-        System.out.println("1. quick_sort_1000.csv");
-        // System.out.println("2. merge_sort_100000.csv");
-        // System.out.println("3. quick_sort_100000.csv");
-        System.out.print("Enter choice (1-3): ");
-        String choice = scanner.nextLine();
-
-        String filename = null;
-
-        switch (choice) {
-            case "1":
-                filename = currentDir + File.separator + "quick_sort_1000.csv";
-                break;
-            // case "2":
-            //     filename = currentDir + File.separator + "merge_sort_100000.csv";
-            //     break;
-            // case "3":
-            //     filename = currentDir + File.separator + "quick_sort_100000.csv";
-            //     break;
-            default:
-                System.out.println("Invalid choice.");
-                return;
+        // Detect all .csv files in the directory
+        File[] files = dir.listFiles((_, name) -> name.toLowerCase().endsWith(".csv"));
+        if (files == null || files.length == 0) {
+            System.out.println("No CSV files found in the current directory.");
+            return;
         }
+
+        // Display dataset options
+        System.out.println("Choose dataset:");
+        for (int i = 0; i < files.length; i++) {
+            System.out.println((i + 1) + ". " + files[i].getName());
+        }
+
+        System.out.print("Enter your choice (1-" + files.length + "): ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume leftover newline
+
+        if (choice < 1 || choice > files.length) {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        String filename = files[choice - 1].getAbsolutePath();
 
         // Load dataset
         List<DataRow> data = loadDataset(filename);
@@ -60,13 +59,15 @@ public class binary_search {
         // Output
         String outputFile = "binary_search_" + n + ".txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-            writer.printf("Best case : %.2f ns%n", bestTime);
-            writer.printf("Average case : %.2f ns%n", avgTime);
-            writer.printf("Worst case : %.2f ns%n", worstTime);
+            writer.printf("Best case time       : %.2f ns%n", bestTime);
+            writer.printf("Average case time    : %.2f ns%n", avgTime);
+            writer.printf("Worst case time      : %.2f ns%n", worstTime);
         }
 
         System.out.println("Results written to " + outputFile);
     }
+    }
+
 
     public static List<DataRow> loadDataset(String filename) throws IOException {
         List<DataRow> dataset = new ArrayList<>();

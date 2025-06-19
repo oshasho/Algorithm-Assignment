@@ -12,7 +12,7 @@ def binary_search_step(dataset, target, output_filename):
 
     with open(output_filename, "w") as f:
         while left <= right:
-            mid = (left + right) // 2  
+            mid = (left + right) // 2
             number, text = dataset[mid]
 
             f.write(f"{mid + 1}: {number}/{text}\n")
@@ -23,41 +23,46 @@ def binary_search_step(dataset, target, output_filename):
                 left = mid + 1
             else:
                 right = mid - 1
-        
+
         f.write("-1\n")
 
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# User menu to select dataset file
-print("Select dataset:")
-print("1. quick_sort_1000.csv")
-# print("2. merge_sort_100000.csv")
-# print("3. quick_sort_100000.csv")
-choice = input("Enter choice (1-3): ")
+# Find all .csv files in this directory
+csv_files = [f for f in os.listdir(script_dir) if f.lower().endswith(".csv")]
 
-dataset_map = {
-    "1": "quick_sort_1000.csv",
-    # "2": "merge_sort_100000.csv",
-    # "3": "quick_sort_100000.csv"
-}
+if not csv_files:
+    print("No CSV files found in the current directory.")
+    exit()
 
-filename = dataset_map.get(choice)
-if filename is None:
+# Display options to user
+print("Choose a dataset:")
+for idx, fname in enumerate(csv_files, start=1):
+    print(f"{idx}. {fname}")
+
+try:
+    choice = int(input(f"Enter choice (1-{len(csv_files)}): "))
+    if choice < 1 or choice > len(csv_files):
+        raise ValueError
+except ValueError:
     print("Invalid choice.")
     exit()
 
+filename = csv_files[choice - 1]
 full_path = os.path.join(script_dir, filename)
 
-target = int(input("Enter target value to search: "))
+# Ask for target
+try:
+    target = int(input("Enter target value to search: "))
+except ValueError:
+    print("Invalid input. Please enter an integer.")
+    exit()
 
 output_file = f"binary_search_step_{target}.txt"
 
 data = load_dataset(full_path)
 
-for i, (num, txt) in enumerate(data[:10]):
-    print(f"{i}: {num}/{txt}")
-    
 binary_search_step(data, target, output_file)
 
 print(f"Search steps saved to {output_file}")

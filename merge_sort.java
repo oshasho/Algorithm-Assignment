@@ -18,7 +18,7 @@ public class merge_sort {
     }
     private void run(String[] args) {
         if (args.length != 1) {
-            System.out.println("Usage: java merge_sort <input_dataset.csv>");
+            System.out.println("Usage: java merge_sort dataset_n.csv");
             return;
         }
 
