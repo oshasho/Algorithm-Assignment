@@ -18,7 +18,7 @@ public class binary_search {
         String currentDir = System.getProperty("user.dir");
         File dir = new File(currentDir);
 
-        // Detect all .csv files in the directory
+        
         File[] files = dir.listFiles((_, name) -> name.toLowerCase().endsWith(".csv"));
         if (files == null || files.length == 0) {
             System.out.println("No CSV files found in the current directory.");
@@ -33,7 +33,7 @@ public class binary_search {
 
         System.out.print("Enter your choice (1-" + files.length + "): ");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // consume leftover newline
+        scanner.nextLine(); 
 
         if (choice < 1 || choice > files.length) {
             System.out.println("Invalid choice.");

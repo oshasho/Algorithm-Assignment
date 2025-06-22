@@ -29,7 +29,6 @@ def binary_search_step(dataset, target, output_filename):
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Find all .csv files in this directory
 csv_files = [f for f in os.listdir(script_dir) if f.lower().endswith(".csv")]
 
 if not csv_files:

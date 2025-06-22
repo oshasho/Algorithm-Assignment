@@ -28,10 +28,8 @@ def measure_time(data, target):
     end = time.perf_counter_ns()
     return (end - start) / n
 
-# Get current directory
+# File searching
 script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# List all .csv files in the directory
 csv_files = [f for f in os.listdir(script_dir) if f.lower().endswith('.csv')]
 
 if not csv_files:
@@ -51,7 +49,6 @@ except ValueError:
     print("Invalid choice.")
     exit()
 
-# Get full file path
 filename = csv_files[choice - 1]
 full_path = os.path.join(script_dir, filename)
 
@@ -59,17 +56,17 @@ full_path = os.path.join(script_dir, filename)
 data = load_dataset(full_path)
 n = len(data)
 
-# Pick targets
+# Choose target
 best_target = data[n // 2][0]
 average_target = data[n // 4][0]
 worst_target = 999999999  # Not in dataset
 
-# Run timing
+# Measure time
 best_time = measure_time(data, best_target)
 avg_time = measure_time(data, average_target)
 worst_time = measure_time(data, worst_target)
 
-# Save result to file
+
 output_file = os.path.join(script_dir, f"binary_search_{n}.txt")
 with open(output_file, "w") as f:
     f.write(f"Best case time    : {best_time:.2f} ns\n")

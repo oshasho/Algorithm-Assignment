@@ -19,7 +19,6 @@ public class binary_search_step {
         // Get current working directory
         String currentDir = System.getProperty("user.dir");
 
-        // List all CSV files in the directory
         File dir = new File(currentDir);
         File[] files = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".csv"));
 
@@ -45,7 +44,7 @@ public class binary_search_step {
 
         String filename = files[choice - 1].getAbsolutePath();
 
-        // Prompt user to enter the target integer
+        // Ask for target integer
         System.out.print("Enter target integer to search: ");
         int target = scanner.nextInt();
 
