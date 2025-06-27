@@ -51,18 +51,20 @@ public class binary_search {
             int averageTarget = data.get(n / 4).number;
             int worstTarget = 999999999; // not in dataset
 
-            // Measure time
-            int repetitions = 1000; // Fixed repetition count
-            double bestTime = measureTime(data, bestTarget, repetitions);
-            double avgTime = measureTime(data, averageTarget, repetitions);
-            double worstTime = measureTime(data, worstTarget, repetitions);
+            // Use dataset size as number of repetitions
+            int repetitions = n;
+
+            // Measure time and get results
+            TimeResult bestResult = measureTime(data, bestTarget, repetitions);
+            TimeResult avgResult = measureTime(data, averageTarget, repetitions);
+            TimeResult worstResult = measureTime(data, worstTarget, repetitions);
 
             // Output
             String outputFile = "binary_search_" + n + ".txt";
             try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
-                writer.printf("Best case time       : %.4f ms%n", bestTime);
-                writer.printf("Average case time    : %.4f ms%n", avgTime);
-                writer.printf("Worst case time      : %.4f ms%n", worstTime);
+                writer.printf("Best case:\n  Total time         : %.2f ms\n  Avg time per search: %.4f ms%n%n", bestResult.totalTimeMs, bestResult.avgTimePerSearchMs);
+                writer.printf("Average case:\n  Total time         : %.2f ms\n  Avg time per search: %.4f ms%n%n", avgResult.totalTimeMs, avgResult.avgTimePerSearchMs);
+                writer.printf("Worst case:\n  Total time         : %.2f ms\n  Avg time per search: %.4f ms%n", worstResult.totalTimeMs, worstResult.avgTimePerSearchMs);
             }
 
             System.out.println("Results written to " + outputFile);
@@ -74,7 +76,7 @@ public class binary_search {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = line.split(",", 2);
                 int number = Integer.parseInt(parts[0]);
                 String text = parts[1];
                 dataset.add(new DataRow(number, text));
@@ -95,12 +97,24 @@ public class binary_search {
         return -1;
     }
 
-    public static double measureTime(List<DataRow> data, int target, int repetitions) {
+    static class TimeResult {
+        double totalTimeMs;
+        double avgTimePerSearchMs;
+
+        TimeResult(double totalTimeMs, double avgTimePerSearchMs) {
+            this.totalTimeMs = totalTimeMs;
+            this.avgTimePerSearchMs = avgTimePerSearchMs;
+        }
+    }
+
+    public static TimeResult measureTime(List<DataRow> data, int target, int repetitions) {
         long start = System.nanoTime();
         for (int i = 0; i < repetitions; i++) {
             binarySearch(data, target);
         }
         long end = System.nanoTime();
-        return (end - start) / (double) repetitions / 1_000_000.0; // ms
+        double totalTimeMs = (end - start) / 1_000_000.0;
+        double avgTimeMs = totalTimeMs / repetitions;
+        return new TimeResult(totalTimeMs, avgTimeMs);
     }
 }

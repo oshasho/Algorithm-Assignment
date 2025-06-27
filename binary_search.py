@@ -20,13 +20,14 @@ def binary_search(data, target):
             right = mid - 1
     return -1
 
-def measure_time(data, target, repetitions=1000):
+def measure_time(data, target, repetitions):
     start = time.perf_counter_ns()
     for _ in range(repetitions):
         binary_search(data, target)
     end = time.perf_counter_ns()
-    avg_time_ns = (end - start) / repetitions
-    return avg_time_ns / 1_000_000  # convert ns to ms
+    total_time_ms = (end - start) / 1_000_000  # total time in ms
+    avg_time_ms = total_time_ms / repetitions
+    return total_time_ms, avg_time_ms
 
 # File searching
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -56,21 +57,32 @@ full_path = os.path.join(script_dir, filename)
 data = load_dataset(full_path)
 n = len(data)
 
-# Choose target
+# Choose targets
 best_target = data[n // 2][0]
 average_target = data[n // 4][0]
 worst_target = 999999999  # Not in dataset
 
-# Measure time with fixed repetitions
-REPS = 1000
-best_time = measure_time(data, best_target, REPS)
-avg_time = measure_time(data, average_target, REPS)
-worst_time = measure_time(data, worst_target, REPS)
+# Use dataset size as repetitions
+REPS = n
 
+# Measure time
+best_total, best_avg = measure_time(data, best_target, REPS)
+avg_total, avg_avg = measure_time(data, average_target, REPS)
+worst_total, worst_avg = measure_time(data, worst_target, REPS)
+
+# Output to file
 output_file = os.path.join(script_dir, f"binary_search_{n}.txt")
 with open(output_file, "w") as f:
-    f.write(f"Best case time    : {best_time:.4f} ms\n")
-    f.write(f"Average case time : {avg_time:.4f} ms\n")
-    f.write(f"Worst case time   : {worst_time:.4f} ms\n")
+    f.write("Best case:\n")
+    f.write(f"  Total time         : {best_total:.2f} ms\n")
+    f.write(f"  Avg time per search: {best_avg:.6f} ms\n\n")
+
+    f.write("Average case:\n")
+    f.write(f"  Total time         : {avg_total:.2f} ms\n")
+    f.write(f"  Avg time per search: {avg_avg:.6f} ms\n\n")
+
+    f.write("Worst case:\n")
+    f.write(f"  Total time         : {worst_total:.2f} ms\n")
+    f.write(f"  Avg time per search: {worst_avg:.6f} ms\n")
 
 print(f"\nResults written to {output_file}")

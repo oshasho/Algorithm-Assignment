@@ -15,7 +15,7 @@ public class quick_sort {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("Usage: java QuickSort dataset_n.csv");
+            System.out.println("Usage: java quick_sort dataset_n.csv");
             return;
         }
 
