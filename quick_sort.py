@@ -13,14 +13,21 @@ def write_csv(filename, data):
         for item in data:
             writer.writerow([item[0], item[1]])
 
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[-1][0]
-    less = [x for x in arr[:-1] if x[0] < pivot]
-    equal = [x for x in arr if x[0] == pivot]
-    greater = [x for x in arr[:-1] if x[0] > pivot]
-    return quick_sort(less) + equal + quick_sort(greater)
+def quick_sort(arr, low, high):
+    if low < high:
+        pi = partition(arr, low, high)
+        quick_sort(arr, low, pi - 1)
+        quick_sort(arr, pi + 1, high)
+
+def partition(arr, low, high):
+    pivot = arr[high][0]  # still using last element
+    i = low - 1
+    for j in range(low, high):
+        if arr[j][0] < pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
 
 def main():
     if len(sys.argv) != 2:
@@ -31,11 +38,11 @@ def main():
     data = read_csv(input_file)
 
     start_time = time.time()
-    sorted_data = quick_sort(data)
+    quick_sort(data, 0, len(data) - 1)
     end_time = time.time()
 
     output_file = f"quick_sort_{len(data)}.csv"
-    write_csv(output_file, sorted_data)
+    write_csv(output_file, data)
 
     print(f"Sorted {len(data)} elements.")
     print(f"Output written to: {output_file}")
