@@ -20,13 +20,13 @@ def binary_search(data, target):
             right = mid - 1
     return -1
 
-def measure_time(data, target):
-    n = len(data)
+def measure_time(data, target, repetitions=1000):
     start = time.perf_counter_ns()
-    for _ in range(n):
+    for _ in range(repetitions):
         binary_search(data, target)
     end = time.perf_counter_ns()
-    return (end - start) / n
+    avg_time_ns = (end - start) / repetitions
+    return avg_time_ns / 1_000_000  # convert ns to ms
 
 # File searching
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -61,16 +61,16 @@ best_target = data[n // 2][0]
 average_target = data[n // 4][0]
 worst_target = 999999999  # Not in dataset
 
-# Measure time
-best_time = measure_time(data, best_target)
-avg_time = measure_time(data, average_target)
-worst_time = measure_time(data, worst_target)
-
+# Measure time with fixed repetitions
+REPS = 1000
+best_time = measure_time(data, best_target, REPS)
+avg_time = measure_time(data, average_target, REPS)
+worst_time = measure_time(data, worst_target, REPS)
 
 output_file = os.path.join(script_dir, f"binary_search_{n}.txt")
 with open(output_file, "w") as f:
-    f.write(f"Best case time    : {best_time:.2f} ns\n")
-    f.write(f"Average case time : {avg_time:.2f} ns\n")
-    f.write(f"Worst case time   : {worst_time:.2f} ns\n")
+    f.write(f"Best case time    : {best_time:.4f} ms\n")
+    f.write(f"Average case time : {avg_time:.4f} ms\n")
+    f.write(f"Worst case time   : {worst_time:.4f} ms\n")
 
 print(f"\nResults written to {output_file}")
